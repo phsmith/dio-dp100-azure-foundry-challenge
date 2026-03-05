@@ -139,12 +139,6 @@ Install/update dependencies:
 uv sync --extra dev
 ```
 
-Update lockfile (recommended after dependency changes):
-
-```bash
-uv lock
-```
-
 Run index setup:
 
 ```bash
