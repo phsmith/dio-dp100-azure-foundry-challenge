@@ -1,0 +1,32 @@
+[project]
+name = "pdf-chat-azure-foundry"
+version = "0.1.0"
+description = "RAG chat with PDF documents using Azure AI Foundry and Azure AI Search."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "azure-identity>=1.20.0",
+  "azure-search-documents>=11.6.0",
+  "openai>=1.50.0",
+  "pydantic>=2.8.0",
+  "pydantic-settings>=2.5.0",
+  "pypdf>=4.3.1",
+  "streamlit>=1.39.0",
+  "tenacity>=9.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["core", "core.clients", "services", "models"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+addopts = "-q"
