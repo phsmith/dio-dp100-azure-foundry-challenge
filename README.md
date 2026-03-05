@@ -2,14 +2,16 @@
 
 Interactive RAG chat over PDF files using Azure AI Foundry (Azure OpenAI deployments) and Azure AI Search.
 
+![PDF Chat with Azure AI Foundry App Image](./app.png)
+
 ## Table of Contents
 
 - [What This Project Does](#what-this-project-does)
+- [Project Structure](#project-structure)
 - [Quick Start](#quick-start)
 - [How It Works](#how-it-works)
 - [Configuration](#configuration)
 - [Development Workflow](#development-workflow)
-- [Project Structure](#project-structure)
 - [Testing](#testing)
 - [Limitations](#limitations)
 - [Troubleshooting](#troubleshooting)
@@ -23,6 +25,34 @@ Interactive RAG chat over PDF files using Azure AI Foundry (Azure OpenAI deploym
 - Store vectors and metadata in Azure AI Search
 - Answer questions grounded in retrieved chunks
 - Always include citations (`file` + `page`)
+
+## Project Structure
+
+```text
+.
+├── app/
+│   └── streamlit_app.py          # Streamlit UI (upload + chat)
+├── core/
+│   ├── clients/
+│   │   ├── openai_client.py      # Azure AI Foundry/OpenAI client
+│   │   └── search_client.py      # Azure AI Search client and index definition
+│   └── config.py                 # Environment settings (pydantic)
+├── models/
+│   ├── __init__.py
+│   └── schemas.py                # TypedDict contracts for payloads
+├── services/
+│   ├── __init__.py
+│   ├── chat_service.py           # Function-based chat orchestration
+│   ├── indexer_service.py        # Function-based index ensure helper
+│   ├── ingestion_service.py      # Function-based ingestion pipeline
+│   └── retrieval_service.py      # Function-based retrieval
+├── scripts/
+│   └── create_index.py           # Idempotent index creation script
+└── tests/
+    ├── test_chat.py
+    ├── test_ingestion.py
+    └── test_retrieval.py
+```
 
 ## Quick Start
 
@@ -149,34 +179,6 @@ Run app:
 
 ```bash
 uv run streamlit run app/streamlit_app.py
-```
-
-## Project Structure
-
-```text
-.
-├── app/
-│   └── streamlit_app.py          # Streamlit UI (upload + chat)
-├── core/
-│   ├── clients/
-│   │   ├── openai_client.py      # Azure AI Foundry/OpenAI client
-│   │   └── search_client.py      # Azure AI Search client and index definition
-│   └── config.py                 # Environment settings (pydantic)
-├── models/
-│   ├── __init__.py
-│   └── schemas.py                # TypedDict contracts for payloads
-├── services/
-│   ├── __init__.py
-│   ├── chat_service.py           # Function-based chat orchestration
-│   ├── indexer_service.py        # Function-based index ensure helper
-│   ├── ingestion_service.py      # Function-based ingestion pipeline
-│   └── retrieval_service.py      # Function-based retrieval
-├── scripts/
-│   └── create_index.py           # Idempotent index creation script
-└── tests/
-    ├── test_chat.py
-    ├── test_ingestion.py
-    └── test_retrieval.py
 ```
 
 ## Testing
